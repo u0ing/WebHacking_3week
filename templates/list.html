@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>게시판</title>
+
+    <!-- 부트스트랩 CSS를 CDN(외부 서버)에서 불러옴 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- 우리가 만든 커스텀 CSS 연결 -->
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <!-- container: 화면 양옆에 적당한 여백을 주는 부트스트랩 클래스 -->
+    <div class="container">
+      <h1>📋 게시판</h1>
+
+      <!-- d-flex, justify-content-between : 글쓰기 버튼과 검색폼을 좌우로 배치 -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- btn, btn-primary : 부트스트랩 기본 버튼 스타일 -->
+        <a href="/write" class="btn btn-primary">✏️ 글쓰기</a>
+
+        <!-- 검색 폼: GET 방식 사용 (조회/검색이므로) -->
+        <form action="/" method="GET" class="d-flex gap-2">
+          <select name="search_type" class="form-select">
+            <option value="title" {{ 'selected' if search_type == 'title' else '' }}>제목</option>
+            <option value="content" {{ 'selected' if search_type == 'content' else '' }}>내용</option>
+            <option value="all" {{ 'selected' if search_type == 'all' else '' }}>전체</option>
+          </select>
+
+          <input
+            type="text"
+            name="keyword"
+            value="{{ keyword or '' }}"
+            placeholder="검색어를 입력하세요"
+            class="form-control"
+          />
+
+          <button type="submit" class="btn btn-outline-secondary">🔍 검색</button>
+        </form>
+      </div>
+
+      <!-- table, table-hover, table-bordered : 부트스트랩 표 스타일 -->
+      <table class="table table-hover table-bordered bg-white">
+        <thead class="table-light">
+          <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- posts 리스트에 있는 게시글 개수만큼 반복해서 한 줄씩 출력 -->
+          {% for post in posts %}
+          <tr>
+            <td>{{ post.id }}</td>
+            <td>
+              <a href="/post/{{ post.id }}">{{ post.title }}</a>
+            </td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.created_at }}</td>
+          </tr>
+          {% endfor %}
+
+          <!-- 검색 결과가 하나도 없을 때 안내 문구 표시 -->
+          {% if posts|length == 0 %}
+          <tr>
+            <td colspan="4" class="text-center text-muted py-4">게시글이 없습니다.</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

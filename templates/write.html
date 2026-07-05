@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>글쓰기</title>
+
+    <!-- 부트스트랩 CSS를 CDN(외부 서버)에서 불러옴 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- 우리가 만든 커스텀 CSS 연결 -->
+    <link rel="stylesheet" href="/static/style.css" />
+
+    <!-- 2주차에서 만든 JS 파일 연결 (제목 유효성 검사용) -->
+    <script src="/static/app.js"></script>
+  </head>
+  <body>
+    <div class="container" style="max-width: 700px">
+      <h1>✏️ 글쓰기</h1>
+
+      <!-- onsubmit="return checkForm();" -->
+      <!-- : 폼 제출 전에 app.js의 checkForm() 함수를 먼저 실행함 -->
+      <!-- checkForm()이 false를 반환하면 제출이 취소됨 -->
+      <form action="/write" method="POST" onsubmit="return checkForm();">
+        <div class="mb-3">
+          <label class="form-label">제목</label>
+          <!-- id="title" : app.js의 checkForm() 함수가 이 id로 값을 찾아서 검사함 -->
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="form-control"
+            placeholder="제목을 입력하세요"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">작성자</label>
+          <input
+            type="text"
+            name="author"
+            class="form-control"
+            placeholder="이름을 입력하세요"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">내용</label>
+          <textarea
+            name="content"
+            rows="10"
+            class="form-control"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">작성완료</button>
+        <a href="/" class="btn btn-outline-secondary">목록으로</a>
+      </form>
+    </div>
+  </body>
+</html>

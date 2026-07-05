@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>글 수정</title>
+
+    <!-- 부트스트랩 CSS를 CDN(외부 서버)에서 불러옴 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- 우리가 만든 커스텀 CSS 연결 -->
+    <link rel="stylesheet" href="/static/style.css" />
+
+    <!-- 2주차에서 만든 JS 파일 연결 (제목 유효성 검사용) -->
+    <script src="/static/app.js"></script>
+  </head>
+  <body>
+    <div class="container" style="max-width: 700px">
+      <h1>🖊️ 글 수정</h1>
+
+      <!-- onsubmit="return checkForm();" : 제출 전에 제목이 비었는지 검사함 -->
+      <form
+        action="/edit/{{ post.id }}"
+        method="POST"
+        onsubmit="return checkForm();"
+      >
+        <div class="mb-3">
+          <label class="form-label">제목</label>
+          <!-- id="title" : app.js의 checkForm() 함수가 이 id로 값을 찾아서 검사함 -->
+          <!-- value에 기존 제목을 미리 채워넣어서, 수정할 부분만 고치게 함 -->
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value="{{ post.title }}"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">작성자</label>
+          <input
+            type="text"
+            name="author"
+            value="{{ post.author }}"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">내용</label>
+          <!-- textarea는 value 속성이 아니라 태그 사이에 기존 내용을 넣어야 함 -->
+          <textarea name="content" rows="10" class="form-control" required>
+{{ post.content }}</textarea
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary">수정완료</button>
+        <a href="/post/{{ post.id }}" class="btn btn-outline-secondary">취소</a>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ post.title }}</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container" style="max-width: 700px">
+      <h1>{{ post.title }}</h1>
+
+      <p class="text-muted">
+        작성자: {{ post.author }} &nbsp;|&nbsp; 작성일: {{ post.created_at }}
+      </p>
+
+      <hr />
+
+      <!-- post-content : style.css에서 만든 커스텀 클래스 (줄바꿈 유지) -->
+      <div class="post-content">{{ post.content }}</div>
+
+      <hr />
+
+      <a href="/edit/{{ post.id }}" class="btn btn-outline-primary">수정</a>
+
+      <!-- 삭제 폼 -->
+      <form
+        action="/delete/{{ post.id }}"
+        method="POST"
+        style="display: inline"
+        onsubmit="return confirm('정말 삭제하시겠습니까?');"
+      >
+        <button type="submit" class="btn btn-outline-danger">삭제</button>
+      </form>
+
+      <a href="/" class="btn btn-outline-secondary">목록으로</a>
+    </div>
+  </body>
+</html>

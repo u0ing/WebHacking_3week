@@ -1,0 +1,33 @@
+/* 우리 게시판만의 커스텀 스타일 (부트스트랩으로 안 되는 세부 조정) */
+
+/* 전체 배경색과 폰트 살짝 조정 */
+body {
+  background-color: #f8f9fa;
+}
+
+/* 페이지 제목에 여백 추가 */
+h1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #343a40;
+}
+
+/* 게시글 내용 표시 영역 - 줄바꿈 유지 + 여백 */
+.post-content {
+  white-space: pre-wrap;
+  min-height: 150px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+/* 표 안의 링크(제목) 색상 */
+table a {
+  text-decoration: none;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+table a:hover {
+  text-decoration: underline;
+}
